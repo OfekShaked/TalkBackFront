@@ -1,0 +1,212 @@
+$medium: 900px;
+$boardWidth: 60vw;
+$boardHeight: 65vh;
+$middleBarWidth: calc(#{$boardWidth} / 32.5);
+$middleBarHeight:calc(#{$boardHeight} - 20px);
+$arrowBorderHeight: calc(#{$boardHeight}/ 2.5);
+$sideBorder:calc(#{$boardWidth}/ 28);
+$pieceSize:calc(min(#{$boardWidth},#{$boardHeight}) / 12);
+
+.board {
+  width: $boardWidth;
+  height: $boardHeight;
+  position: relative;
+  background-color: #335533;
+  box-sizing: border-box;
+  border: 10px solid black;
+  border-radius: 10px;
+  margin: 0px;
+  padding: 0px;
+}
+
+.left-bin {
+  position: relative;
+  left: 5px;
+  top: 0px;
+}
+
+.right-bin {
+  position: relative;
+  left: calc(#{$boardWidth}/1.9);
+  top: calc((#{$boardHeight}/1.255)*-1);
+}
+
+.arrow-down {
+  width: 0px;
+  height: 0px;
+  border-left: $sideBorder solid transparent;
+  border-right: $sideBorder solid transparent;
+  border-top: calc(#{$boardHeight}/ 2.5) solid green;
+  border-bottom: 0px solid;
+  display: inline;
+  float: left;
+}
+.arrow-up {
+  width: 0px;
+  height: 0px;
+  border-top: 0px solid;
+  border-left: $sideBorder solid transparent;
+  border-right: $sideBorder solid transparent;
+  border-bottom: $arrowBorderHeight solid green;
+  display: inline;
+  float: left;
+}
+.arrow-up.odd {
+  border-bottom: $arrowBorderHeight solid #044;
+}
+
+.arrow-down.even {
+  border-top: $arrowBorderHeight solid #044;
+}
+
+.left-bin .bottom-row {
+  clear: left;
+}
+
+.right-bin .top-row {
+  clear: left;
+}
+
+.right-bin .bottom-row {
+  clear: left;
+}
+
+.bottom-row {
+  position: relative;
+  top: calc(#{$middleBarHeight/6.2});
+}
+
+
+
+
+.middle-bar {
+  width: $middleBarWidth;
+  height: $middleBarHeight;
+  padding: 5px;
+  background-color: black;
+  position: absolute;
+  left: calc(#{$boardWidth}/ 2 - #{$middleBarWidth});
+  top: 0px;
+}
+
+%piece{
+  width: $pieceSize;
+  height: $pieceSize;  
+  opacity: 0.6;
+  position: absolute;
+  z-index: 1;
+  border-radius: 128px;
+}
+.piece_black{
+  @extend %piece;
+  background-color: black;
+}
+.piece_white{
+  @extend %piece;
+  background-color:white;
+}
+.top_row_1{
+  top:0px;
+}
+.top_row_2{
+  top:$pieceSize
+}
+.top_row_3{
+  top:calc((#{$pieceSize}+2px)*2)
+}
+.top_row_4{
+  top:calc((#{$pieceSize}+2px)*3)
+}
+.top_row_5{
+  top:calc((#{$pieceSize}+2px)*4)
+}
+.bottom_row_1 {
+  bottom:0px;
+}
+.bottom_row_2 {
+  bottom:$pieceSize
+}
+.bottom_row_3 {
+  bottom:calc((#{$pieceSize}+2px)*2)
+}
+.bottom_row_4 {
+  bottom:calc((#{$pieceSize}+2px)*3)
+}
+.bottom_row_5 {
+  bottom:calc((#{$pieceSize}+2px)*4)
+}
+.column_1{
+  left:calc(#{$boardWidth}/75);
+}
+.column_2{
+  left:calc(#{$boardWidth}/11.9);
+}
+.column_3{
+  left:calc(#{$boardWidth}/6.45);
+}
+.column_4{
+  left:calc(#{$boardWidth}/4.39);
+}
+.column_5{
+  left:calc(#{$boardWidth}/3.355);
+}
+.column_6{
+  left:calc(#{$boardWidth}/2.69);
+}
+.column_7{
+  left:calc(#{$boardWidth}/1.885);
+}
+.column_8{
+  left:calc(#{$boardWidth}/1.66);
+}
+.column_9{
+  left:calc(#{$boardWidth}/1.485);
+}
+.column_10{
+  left:calc(#{$boardWidth}/1.344);
+}
+.column_11{
+  left:calc(#{$boardWidth}/1.2244);
+}
+.column_12{
+  left:calc(#{$boardWidth}/1.1265);
+}
+
+@media screen and (min-width: $medium) {
+  .column_1{
+    left:calc(#{$boardWidth}/52);
+  }
+  .column_2{
+    left:calc(#{$boardWidth}/11);
+  }
+  .column_3{
+    left:calc(#{$boardWidth}/6.2);
+  }
+  .column_4{
+    left:calc(#{$boardWidth}/4.28);
+  }
+  .column_5{
+    left:calc(#{$boardWidth}/3.289);
+  }
+  .column_6{
+    left:calc(#{$boardWidth}/2.66);
+  }
+  .column_7{
+    left:calc(#{$boardWidth}/1.852);
+  }
+  .column_8{
+    left:calc(#{$boardWidth}/1.632);
+  }
+  .column_9{
+    left:calc(#{$boardWidth}/1.465);
+  }
+  .column_10{
+    left:calc(#{$boardWidth}/1.325);
+  }
+  .column_11{
+    left:calc(#{$boardWidth}/1.212);
+  }
+  .column_12{
+    left:calc(#{$boardWidth}/1.112);
+  }
+}
