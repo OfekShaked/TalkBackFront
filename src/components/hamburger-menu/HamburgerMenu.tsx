@@ -1,8 +1,9 @@
 import React from 'react';
 import { Drawer,IconButton,Divider,List,ListItem,ListItemIcon,ListItemText} from '@material-ui/core';
-import {ChevronLeft,ChevronRight,Inbox,Mail} from '@material-ui/icons';
+import {ChevronLeft,ChevronRight,AccountCircle,Add,Launch} from '@material-ui/icons';
 import useStyles from './HamburgerStyle';
 import { useTheme } from '@material-ui/core';
+import {NavLink} from 'react-router-dom';
 
 
 const HamburgerMenu = (props:any) =>{
@@ -26,12 +27,24 @@ const HamburgerMenu = (props:any) =>{
       </div>
       <Divider />
       <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <Inbox /> : <Mail />}</ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
+      <ListItem button
+          key="Sign-In"
+          component={NavLink} to="/signin">
+          <ListItemIcon><AccountCircle></AccountCircle></ListItemIcon>
+          <ListItemText primary="Sign-In"></ListItemText>
+        </ListItem>
+        <ListItem button
+          key="Register"
+          component={NavLink} to="/register">
+          <ListItemIcon><Add></Add></ListItemIcon>
+          <ListItemText primary="Register"></ListItemText>
+        </ListItem>
+        <ListItem button
+          key="Open"
+          component={NavLink} to="/open">
+          <ListItemIcon><Launch></Launch></ListItemIcon>
+          <ListItemText primary="Open"></ListItemText>
+        </ListItem>
       </List>
     </Drawer>
     );

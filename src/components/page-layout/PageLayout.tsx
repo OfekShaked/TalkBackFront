@@ -4,6 +4,9 @@ import { useTheme } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import useStyles from './PageLayoutStyle';
 import Header from '../header/Header';
+import SignUp from '../../views/sign-up/SignUp';
+import Login from '../../views/log-in/Login';
+import {BrowserRouter,Route} from 'react-router-dom';
 
 export default function PageLayout() {
   const theme = useTheme();
@@ -21,6 +24,7 @@ export default function PageLayout() {
   return (
     <div className={classes.root}>
       <CssBaseline />
+      <BrowserRouter>
       <Header handleDrawerOpen={handleDrawerOpen} open={open} handleDrawerClose={handleDrawerClose}></Header>
 
       <main
@@ -29,8 +33,10 @@ export default function PageLayout() {
         })}
       >
         <div className={classes.drawerHeader} />
-        Hello
+        <Route path="/signin" component={Login}/>
+        <Route path="/register" component={SignUp}/>
       </main>
+        </BrowserRouter>
     </div>
   );
 }
