@@ -1,0 +1,21 @@
+.paper {
+    max-width: 450px;
+    width:auto;
+    margin: auto;
+  }
+  %avatar{
+      width:20px !important;
+      height: 20px !important;
+  }
+.online{
+    @extend %avatar;
+    background-color:green !important;
+}
+.offline{
+    @extend %avatar;
+    background-color:red !important;
+}
+.center{
+    align-items: center;
+    margin: auto;
+}

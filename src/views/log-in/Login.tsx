@@ -1,5 +1,4 @@
-import React,{useState} from 'react';
-import axios from 'axios'
+import React,{useState,useContext} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -13,22 +12,27 @@ import useStyles from './LoginStyle';
 import { useTheme } from '@material-ui/core/styles';
 import useInput from '../../hooks/useInput';
 import {login} from '../../services/auth.service'
+import { useHistory } from "react-router-dom";
+import {SocketContext} from '../../context/socketContext';
 
 
-const Login = () => {
+const Login = (props:any) => {
+    const socket = useContext(SocketContext);
     const theme = useTheme();
     const classes = useStyles(theme);
+    const history = useHistory();
 
-
-    const username = useInput('');
+    const usernameRecieved = useInput('');
     const password = useInput('');
     const [credentialError,setCredentialError] = useState("")
 
     const onSubmit = async (e:any) => {
         e.preventDefault();
-        const userData:object = { "username":username.value, "password":password.value};
+        const userData:any = { "username":usernameRecieved.value, "password":password.value};
         if(login(userData,setCredentialError)){
-            
+            await socket.emit("user_online",userData.username);
+            props.setIsLoggedIn(true);
+            history.push("/contact");
         }
     }
     return (
@@ -52,7 +56,7 @@ const Login = () => {
                                 label="Username"
                                 name="username"
                                 autoComplete="string"
-                                {...username}
+                                {...usernameRecieved}
                                 error={credentialError!==""}
                                 helperText={credentialError}
                             />

@@ -1,10 +1,12 @@
 import axios from 'axios'
+import config from '../configs/config';
 
-export const login =async (userData:Object,setCredentialError:any) => {
-    axios.post('http://localhost:5000/account/login', userData)
+export const login =async (userData:any,setCredentialError:any) => {
+    axios.post(`${config.apiUrl}/account/login`, userData)
     .then(response => {
         if(response.status===200){
             localStorage.setItem('token',response.data.token);
+            localStorage.setItem('username',userData.username);
             return true;
         }else{
              setCredentialError(response.data.message);
@@ -18,7 +20,7 @@ export const login =async (userData:Object,setCredentialError:any) => {
 }
 
 export const register = async (userData:Object,setUsernameError:any)=>{
-    axios.post('http://localhost:5000/account/register', userData)
+    axios.post(`${config.apiUrl}/account/register`, userData)
             .then(response => {
                 if(response.status===200){
                     return true;
@@ -34,7 +36,27 @@ export const register = async (userData:Object,setUsernameError:any)=>{
 };
 export const logout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("username");
   };
 export const getCurrentUser = () =>{
-    return localStorage.getItem('token');
+    return localStorage.getItem('username');
 };
+
+export const isAuthorized = async():Promise<Boolean> =>{
+    try{
+        const dataToSend = {
+            authorization:localStorage.getItem('token')
+        }
+    const response = await axios.post(`${config.apiUrl}/account/isconnected`, dataToSend)
+        if(response.status===200){
+            localStorage.setItem('token',response.data.token);
+            localStorage.setItem('username',response.data.username);
+            return true;
+        }else{
+             logout();
+             return false;
+        }
+    }catch(error) {
+         return false;
+    };
+}

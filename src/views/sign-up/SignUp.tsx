@@ -1,5 +1,4 @@
 import React,{useState} from 'react';
-import axios from 'axios'
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -13,12 +12,14 @@ import useStyles from './SignUpStyle';
 import { useTheme } from '@material-ui/core/styles';
 import useInput from '../../hooks/useInput';
 import {register} from '../../services/auth.service';
+import { useHistory } from "react-router-dom";
+
 
 const SignUp = () => {
     const theme = useTheme();
     const classes = useStyles(theme);
 
-
+    const history = useHistory();
     const username = useInput('');
     const password = useInput('');
     const [usernameError,setUsernameError] = useState("")
@@ -27,7 +28,7 @@ const SignUp = () => {
         e.preventDefault();
         const userData:object = { "username":username.value, "password":password.value};
         if(register(userData,setUsernameError)){
-            
+            history.push("/signin")
         }
     }
     return (

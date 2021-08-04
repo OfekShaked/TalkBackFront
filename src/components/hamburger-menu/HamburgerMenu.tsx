@@ -1,6 +1,6 @@
 import React from 'react';
 import { Drawer,IconButton,Divider,List,ListItem,ListItemIcon,ListItemText} from '@material-ui/core';
-import {ChevronLeft,ChevronRight,AccountCircle,Add,Launch} from '@material-ui/icons';
+import {ChevronLeft,ChevronRight,AccountCircle,Add,Launch,ExitToApp} from '@material-ui/icons';
 import useStyles from './HamburgerStyle';
 import { useTheme } from '@material-ui/core';
 import {NavLink} from 'react-router-dom';
@@ -9,7 +9,8 @@ import {NavLink} from 'react-router-dom';
 const HamburgerMenu = (props:any) =>{
   const theme = useTheme();
   const classes = useStyles(theme);
-
+  console.log(props.isLoggedIn);
+  
     return (
       <Drawer
       className={classes.drawer}
@@ -27,7 +28,9 @@ const HamburgerMenu = (props:any) =>{
       </div>
       <Divider />
       <List>
-      <ListItem button
+        {!props.isLoggedIn ? (
+          <>
+          <ListItem button
           key="Sign-In"
           component={NavLink} to="/signin">
           <ListItemIcon><AccountCircle></AccountCircle></ListItemIcon>
@@ -39,12 +42,19 @@ const HamburgerMenu = (props:any) =>{
           <ListItemIcon><Add></Add></ListItemIcon>
           <ListItemText primary="Register"></ListItemText>
         </ListItem>
+        </>):<>
         <ListItem button
           key="Open"
-          component={NavLink} to="/open">
+          component={NavLink} to="/contact">
           <ListItemIcon><Launch></Launch></ListItemIcon>
           <ListItemText primary="Open"></ListItemText>
-        </ListItem>
+        </ListItem><ListItem button
+          key="Logout"
+          component={NavLink} to="/Logout">
+          <ListItemIcon><ExitToApp></ExitToApp></ListItemIcon>
+          <ListItemText primary="Logout"></ListItemText>
+        </ListItem></>}
+
       </List>
     </Drawer>
     );

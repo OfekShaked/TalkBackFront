@@ -33,7 +33,7 @@ const Header = (props:any) =>{
           </Typography>
         </Toolbar>
       </AppBar>
-      <HamburgerMenu open={props.open} handleDrawerClose={props.handleDrawerClose}></HamburgerMenu>
+      <HamburgerMenu open={props.open} handleDrawerClose={props.handleDrawerClose} isLoggedIn={props.isLoggedIn}></HamburgerMenu>
       </>
     );
 }
