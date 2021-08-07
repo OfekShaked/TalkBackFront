@@ -5,7 +5,21 @@ $middleBarWidth: calc(#{$boardWidth} / 32.5);
 $middleBarHeight:calc(#{$boardHeight} - 20px);
 $arrowBorderHeight: calc(#{$boardHeight}/ 2.5);
 $sideBorder:calc(#{$boardWidth}/ 28);
-$pieceSize:calc(min(#{$boardWidth},#{$boardHeight}) / 12);
+$pieceSize:calc(min(#{$boardWidth},#{$boardHeight}) / 13);
+
+
+.frame{
+  width: calc((#{$boardWidth}*1.02));
+  height: calc((#{$boardHeight}*1.3));
+  position: absolute;
+  background-color: white;
+  border-radius: 10px;
+  margin: 0px;
+  padding: 0px;
+  top:50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  }
 
 .board {
   width: $boardWidth;
@@ -15,8 +29,24 @@ $pieceSize:calc(min(#{$boardWidth},#{$boardHeight}) / 12);
   box-sizing: border-box;
   border: 10px solid black;
   border-radius: 10px;
-  margin: 0px;
   padding: 0px;
+  top:40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.centerContainer{
+  display: flex;
+  justify-content: center;
+}
+.leftContainer{
+  display: flex;
+  justify-content: left;
+}
+
+.fillIcon{
+  background-color: black !important;
+  fill: white !important;
 }
 
 .left-bin {
@@ -88,14 +118,13 @@ $pieceSize:calc(min(#{$boardWidth},#{$boardHeight}) / 12);
   left: calc(#{$boardWidth}/ 2 - #{$middleBarWidth});
   top: 0px;
 }
-
 %piece{
   width: $pieceSize;
   height: $pieceSize;  
-  opacity: 0.6;
+  opacity: 0.9;
   position: absolute;
   z-index: 1;
-  border-radius: 128px;
+  border-radius: 500px;
 }
 .piece_black{
   @extend %piece;
@@ -104,6 +133,24 @@ $pieceSize:calc(min(#{$boardWidth},#{$boardHeight}) / 12);
 .piece_white{
   @extend %piece;
   background-color:white;
+}
+.canBeMoved:hover{
+  opacity:0.7!important;
+  cursor:pointer;
+}
+.optional{
+  width: calc(#{$pieceSize}*1.2)!important;
+  height: calc(#{$pieceSize}*1.2)!important;  
+  border: 3px solid orange;
+  opacity:0.5!important;
+}
+.optional:hover{
+  border: 5px solid orange;
+  opacity:0.7!important;
+  cursor: pointer;
+}
+.optional:active{
+  cursor:grab;
 }
 .top_row_1{
   top:0px;
@@ -135,78 +182,84 @@ $pieceSize:calc(min(#{$boardWidth},#{$boardHeight}) / 12);
 .bottom_row_5 {
   bottom:calc((#{$pieceSize}+2px)*4)
 }
-.column_1{
-  left:calc(#{$boardWidth}/75);
-}
-.column_2{
-  left:calc(#{$boardWidth}/11.9);
-}
-.column_3{
-  left:calc(#{$boardWidth}/6.45);
-}
-.column_4{
-  left:calc(#{$boardWidth}/4.39);
-}
-.column_5{
-  left:calc(#{$boardWidth}/3.355);
-}
-.column_6{
-  left:calc(#{$boardWidth}/2.69);
-}
-.column_7{
-  left:calc(#{$boardWidth}/1.885);
-}
-.column_8{
-  left:calc(#{$boardWidth}/1.66);
-}
-.column_9{
-  left:calc(#{$boardWidth}/1.485);
-}
-.column_10{
-  left:calc(#{$boardWidth}/1.344);
+.column_12{
+  left:calc(#{$boardWidth}/100);
 }
 .column_11{
+  left:calc(#{$boardWidth}/11.9);
+}
+.column_10{
+  left:calc(#{$boardWidth}/6.45);
+}
+.column_9{
+  left:calc(#{$boardWidth}/4.39);
+}
+.column_8{
+  left:calc(#{$boardWidth}/3.355);
+}
+.column_7{
+  left:calc(#{$boardWidth}/2.69);
+}
+.column_6{
+  left:calc(#{$boardWidth}/1.885);
+}
+.column_5{
+  left:calc(#{$boardWidth}/1.66);
+}
+.column_4{
+  left:calc(#{$boardWidth}/1.485);
+}
+.column_3{
+  left:calc(#{$boardWidth}/1.344);
+}
+.column_2{
   left:calc(#{$boardWidth}/1.2244);
 }
-.column_12{
-  left:calc(#{$boardWidth}/1.1265);
+.column_1{
+  left:calc(#{$boardWidth}/1.127);
+}
+.column_0{
+  left:calc(#{$boardWidth});
 }
 
 @media screen and (min-width: $medium) {
-  .column_1{
-    left:calc(#{$boardWidth}/52);
-  }
-  .column_2{
-    left:calc(#{$boardWidth}/11);
-  }
-  .column_3{
-    left:calc(#{$boardWidth}/6.2);
-  }
-  .column_4{
-    left:calc(#{$boardWidth}/4.28);
-  }
-  .column_5{
-    left:calc(#{$boardWidth}/3.289);
-  }
-  .column_6{
-    left:calc(#{$boardWidth}/2.66);
-  }
-  .column_7{
-    left:calc(#{$boardWidth}/1.852);
-  }
-  .column_8{
-    left:calc(#{$boardWidth}/1.632);
-  }
-  .column_9{
-    left:calc(#{$boardWidth}/1.465);
-  }
-  .column_10{
-    left:calc(#{$boardWidth}/1.325);
+  .column_12{
+    left:calc(#{$boardWidth}/85);
   }
   .column_11{
-    left:calc(#{$boardWidth}/1.212);
+    left:calc(#{$boardWidth}/12);
   }
-  .column_12{
-    left:calc(#{$boardWidth}/1.112);
+  .column_10{
+    left:calc(#{$boardWidth}/6.52);
+  }
+  .column_9{
+    left:calc(#{$boardWidth}/4.4);
+  }
+  .column_8{
+    left:calc(#{$boardWidth}/3.39);
+  }
+  .column_7{
+    left:calc(#{$boardWidth}/2.7);
+  }
+  .column_6{
+    left:calc(#{$boardWidth}/1.865);
+  }
+  .column_5{
+    left:calc(#{$boardWidth}/1.648);
+  }
+  .column_4{
+    left:calc(#{$boardWidth}/1.476);
+  }
+  .column_3{
+    left:calc(#{$boardWidth}/1.335);
+  }
+  .column_2{
+    left:calc(#{$boardWidth}/1.219);
+  }
+  .column_1{
+    left:calc(#{$boardWidth}/1.115);
+  }
+  .column_0{
+    left:calc(#{$boardWidth});
   }
 }

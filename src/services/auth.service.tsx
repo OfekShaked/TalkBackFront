@@ -1,7 +1,7 @@
 import axios from 'axios'
 import config from '../configs/config';
 
-export const login =async (userData:any,setCredentialError:any) => {
+export const login =async (userData:any,setCredentialError:any):Promise<Boolean> => {
     axios.post(`${config.apiUrl}/account/login`, userData)
     .then(response => {
         if(response.status===200){
@@ -17,6 +17,7 @@ export const login =async (userData:any,setCredentialError:any) => {
          setCredentialError('There was an error! please try again!');
          return false;
     });
+    return false;
 }
 
 export const register = async (userData:Object,setUsernameError:any)=>{

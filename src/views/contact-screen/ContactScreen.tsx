@@ -6,14 +6,17 @@ import './ContactScreenStyle.scss';
 import Conversation from '../../components/conversation/Conversation';
 import { SocketContext } from '../../context/socketContext';
 import { getCurrentUser } from '../../services/auth.service';
-import useOpen from '../../hooks/useOpen';
+import useOpenConversation from '../../hooks/useOpenConversation';
+import useOpenBoard from '../../hooks/useOpenBoard';
+import Board from '../../components/board/Board';
 
 const ContactScreen = () => {
     const socket = useContext(SocketContext);
     const [selectedUsername, setSelectedUsername] = useState<String>("");
     const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
     const [users, setUsers] = useState<Array<any>>([]);
-    const { open, handleClose,handleOpen} = useOpen();
+    const { openConversation, handleConversationOpen,handleConversationClose} = useOpenConversation();
+    const {openBoard,handleBoardOpen,handleBoardClose} = useOpenBoard();
     const handleDialogClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
     }
@@ -21,7 +24,9 @@ const ContactScreen = () => {
     const handleDialogClose = (value: string) => {
         setAnchorEl(null);
         if(value==="sendMessage"){            
-            handleOpen();
+            handleConversationOpen();
+        }else if(value==="play"){
+            handleBoardOpen();
         }
         
     };
@@ -73,7 +78,9 @@ const ContactScreen = () => {
                 onRowClick={handleRowSelection}
             />
             <ContactDialog open={dialogOpen} handleClose={handleDialogClose} id={id} anchorEl={anchorEl} />
-            <Conversation open={open} handleClose={handleClose} senderUsername={getCurrentUser()} recieverUsername={selectedUsername}/>
+            <Conversation open={openConversation} handleClose={handleConversationClose} senderUsername={getCurrentUser()} recieverUsername={selectedUsername}/>
+            <Board open={openBoard} handleClose={handleBoardClose}/>
+
         </>
 
     );

@@ -9,7 +9,6 @@ import {NavLink} from 'react-router-dom';
 const HamburgerMenu = (props:any) =>{
   const theme = useTheme();
   const classes = useStyles(theme);
-  console.log(props.isLoggedIn);
   
     return (
       <Drawer

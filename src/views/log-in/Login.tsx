@@ -29,7 +29,7 @@ const Login = (props:any) => {
     const onSubmit = async (e:any) => {
         e.preventDefault();
         const userData:any = { "username":usernameRecieved.value, "password":password.value};
-        if(login(userData,setCredentialError)){
+        if(await login(userData,setCredentialError)){
             await socket.emit("user_online",userData.username);
             props.setIsLoggedIn(true);
             history.push("/contact");

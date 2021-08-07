@@ -76,7 +76,7 @@ export default function PageLayout() {
           <Route path="/register" component={isLoggedIn? ContactScreen : SignUp} />
           <Route path="/contact" component={ContactScreen} />
           <Route path="/logout" component={() => <Logout setIsLoggedIn={setIsLoggedIn} />}/>
-    
+
         </main>
       </BrowserRouter>
     </div>

@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
 import Modal from '@material-ui/core/Modal'
-import useOpen from '../../hooks/useOpen'
+import useOpen from '../../hooks/useOpenConversation'
 
 const ModalPopup = (props:any) =>{
     const {open, handleClose} = props;
