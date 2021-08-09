@@ -7,6 +7,7 @@ interface BoardPieceProps{
     row:number;
     onClick:any|null;
     isOptional:Boolean;
+    children?: JSX.Element;
 }
 
 const BoardPiece = (props: BoardPieceProps) => {
@@ -54,7 +55,9 @@ const BoardPiece = (props: BoardPieceProps) => {
     return (
         <>
         {!isDead?
-            <div className={`piece_${color} ${topOrBottom}_row_${row} column_${column} ${isOptional?"optional":""} ${props.onClick?"canBeMoved":""}`} draggable="true" onClick={props.onClick}></div>
+            <div className={`piece_${color} ${topOrBottom}_row_${row} column_${column} ${isOptional?"optional":""} ${props.onClick?"canBeMoved":""}`} draggable="true" onClick={props.onClick}>
+                {props.children}
+            </div>
         :<></>}
         </>
     )

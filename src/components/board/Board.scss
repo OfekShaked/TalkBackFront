@@ -21,6 +21,13 @@ $pieceSize:calc(min(#{$boardWidth},#{$boardHeight}) / 13);
   transform: translate(-50%, -50%);
   }
 
+.loading{
+  top:50%;
+  left: 50%;
+  position: absolute;
+  transform:inherit;
+}
+
 .board {
   width: $boardWidth;
   height: $boardHeight;
@@ -39,11 +46,32 @@ $pieceSize:calc(min(#{$boardWidth},#{$boardHeight}) / 13);
   display: flex;
   justify-content: center;
 }
+.topContainer{
+  display: inline-block;
+  width:100%;
+}
 .leftContainer{
   display: flex;
+  float: left;
   justify-content: left;
 }
-
+.message{
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  font-size: 25px;
+  font-weight: bolder;
+  color:red;
+}
+.rightContainer{
+  display: flex;
+  float: right;
+  justify-content: right;
+}
+.turnsLeft{
+  top:10px;
+  right: 10px;
+}
 .fillIcon{
   background-color: black !important;
   fill: white !important;
@@ -125,10 +153,21 @@ $pieceSize:calc(min(#{$boardWidth},#{$boardHeight}) / 13);
   position: absolute;
   z-index: 1;
   border-radius: 500px;
+  text-align: center;
+  display:flex;
+  align-items: center;
+  justify-content:center;
+}
+.aboveFive{
+  font-size: 18px;
+  font-weight: bold;
 }
 .piece_black{
   @extend %piece;
   background-color: black;
+  span{
+    color: white
+  }
 }
 .piece_white{
   @extend %piece;
@@ -166,6 +205,16 @@ $pieceSize:calc(min(#{$boardWidth},#{$boardHeight}) / 13);
 }
 .top_row_5{
   top:calc((#{$pieceSize}+2px)*4)
+}
+.top_row_100{
+  top:calc((#{$pieceSize}+2px)*6.5)!important;
+  left:calc(#{$boardWidth}/2.17)!important;
+}
+.top_row_101{
+  top:calc((#{$pieceSize}+2px)*5)!important;
+  left:calc(#{$boardWidth}/2.17)!important;
+  border: 3px solid white;
+
 }
 .bottom_row_1 {
   bottom:0px;
@@ -261,5 +310,15 @@ $pieceSize:calc(min(#{$boardWidth},#{$boardHeight}) / 13);
   }
   .column_0{
     left:calc(#{$boardWidth});
+  }
+  .top_row_100{
+    top:calc((#{$pieceSize}+2px)*6.5)!important;
+    left:calc(#{$boardWidth}/2.17)!important;
+  }
+  .top_row_101{
+    top:calc((#{$pieceSize}+2px)*5)!important;
+    left:calc(#{$boardWidth}/2.17)!important;
+    border: 3px solid white;
+
   }
 }

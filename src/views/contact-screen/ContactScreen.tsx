@@ -9,6 +9,7 @@ import { getCurrentUser } from '../../services/auth.service';
 import useOpenConversation from '../../hooks/useOpenConversation';
 import useOpenBoard from '../../hooks/useOpenBoard';
 import Board from '../../components/board/Board';
+import GameDialog from '../../components/game-dialog/GameDialog';
 
 const ContactScreen = () => {
     const socket = useContext(SocketContext);
@@ -16,6 +17,8 @@ const ContactScreen = () => {
     const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
     const [users, setUsers] = useState<Array<any>>([]);
     const { openConversation, handleConversationOpen,handleConversationClose} = useOpenConversation();
+    const [openGameDialog,setOpenGameDialog] = useState(false);
+    const [playerAsking,setPlayerAsking] = useState("");
     const {openBoard,handleBoardOpen,handleBoardClose} = useOpenBoard();
     const handleDialogClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
@@ -26,12 +29,22 @@ const ContactScreen = () => {
         if(value==="sendMessage"){            
             handleConversationOpen();
         }else if(value==="play"){
-            handleBoardOpen();
+            handleBoardOpen(getCurrentUser(),selectedUsername);
         }
         
     };
     const handleRowSelection = (e: any) => {
         setSelectedUsername(e.row.username);
+    }
+    const handleGameDialogClose = (status:any)=>{
+        setOpenGameDialog(false);
+        let senderUsername=getCurrentUser();
+        if(status!=="agree"){
+            socket.emit("leaveGame",{ senderUsername, selectedUsername});
+        }
+        else{            
+            handleBoardOpen(senderUsername,selectedUsername);
+        }
     }
     const dialogOpen = Boolean(anchorEl);
     const id = dialogOpen ? 'simple-popover' : undefined;
@@ -43,6 +56,11 @@ const ContactScreen = () => {
             await socket.on("getUsers", (users: any) => {
                 const userRows = users.map((user: any,index:any) => ({id:index, username: user.username, status: "online" }))
                 setUsers(userRows);
+            })
+            await socket.on("askToJoinGame",(username:any)=>{                
+                setPlayerAsking(username);
+                setSelectedUsername(username);
+                setOpenGameDialog(true);
             })
         }
         socketGet();
@@ -80,6 +98,7 @@ const ContactScreen = () => {
             <ContactDialog open={dialogOpen} handleClose={handleDialogClose} id={id} anchorEl={anchorEl} />
             <Conversation open={openConversation} handleClose={handleConversationClose} senderUsername={getCurrentUser()} recieverUsername={selectedUsername}/>
             <Board open={openBoard} handleClose={handleBoardClose}/>
+            <GameDialog open={openGameDialog} handleClose={handleGameDialogClose} player={playerAsking}/>
 
         </>
 
