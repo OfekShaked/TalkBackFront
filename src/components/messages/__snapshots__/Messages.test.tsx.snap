@@ -1,0 +1,99 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`messages tests renders messages component 1`] = `
+<div
+  className="messages"
+>
+  <div>
+    <div
+      className="messageContainer justifyStart"
+    >
+      <div
+        className="messageBox backgroundLight"
+      >
+        <p
+          className="messageText colorDark"
+        >
+          Hello there!
+        </p>
+      </div>
+      <p
+        className="sentText pl-10 "
+      />
+    </div>
+  </div>
+  <div>
+    <div
+      className="messageContainer justifyStart"
+    >
+      <div
+        className="messageBox backgroundLight"
+      >
+        <p
+          className="messageText colorDark"
+        >
+          Hello there!
+        </p>
+      </div>
+      <p
+        className="sentText pl-10 "
+      />
+    </div>
+  </div>
+  <div>
+    <div
+      className="messageContainer justifyStart"
+    >
+      <div
+        className="messageBox backgroundLight"
+      >
+        <p
+          className="messageText colorDark"
+        >
+          Hello there!
+        </p>
+      </div>
+      <p
+        className="sentText pl-10 "
+      />
+    </div>
+  </div>
+  <div>
+    <div
+      className="messageContainer justifyStart"
+    >
+      <div
+        className="messageBox backgroundLight"
+      >
+        <p
+          className="messageText colorDark"
+        >
+          Hello there!
+        </p>
+      </div>
+      <p
+        className="sentText pl-10 "
+      />
+    </div>
+  </div>
+  <div>
+    <div
+      className="messageContainer justifyStart"
+    >
+      <div
+        className="messageBox backgroundLight"
+      >
+        <p
+          className="messageText colorDark"
+        >
+          Hello there!
+        </p>
+      </div>
+      <p
+        className="sentText pl-10 "
+      />
+    </div>
+  </div>
+  <div />
+</div>
+`;

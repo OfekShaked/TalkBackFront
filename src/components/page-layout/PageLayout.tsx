@@ -11,7 +11,7 @@ import ContactScreen from '../../views/contact-screen/ContactScreen';
 import { BrowserRouter, Route, Redirect } from 'react-router-dom';
 import { isAuthorized } from '../../services/auth.service'
 import { SocketContext } from '../../context/socketContext'
-
+import { handleError } from '../../services/errorHandling.service'
 
 export default function PageLayout() {
   const [currentPage, setCurrentPage] = useState("");
@@ -36,8 +36,7 @@ export default function PageLayout() {
       }
       getAuth();
     } catch (err) {
-      console.log(err);
-
+      handleError(err);
     }
   }, [])
 
@@ -50,9 +49,8 @@ export default function PageLayout() {
       else {
         setCurrentPage("/signin");
       }
-    }catch (err) {
-      console.log(err);
-
+    } catch (err) {
+      handleError(err);
     }
   }, [isLoggedIn])
 
@@ -69,13 +67,16 @@ export default function PageLayout() {
           })}
         >
           <div className={classes.drawerHeader} />
-          <Route path="/" render={() => {
+          <Route path="/signin" component={() => isLoggedIn ? <ContactScreen /> : <Login setIsLoggedIn={setIsLoggedIn} />} />
+          <Route path="/register" component={isLoggedIn ? ContactScreen : SignUp} />
+          <Route path="/contact" component={ContactScreen} />
+          <Route path="/logout" component={() => <Logout setIsLoggedIn={setIsLoggedIn} />} />
+          <Route path="**" render={() => {
             return (<Redirect to={currentPage} />)
           }} />
-          <Route path="/signin" component={() => isLoggedIn? <ContactScreen />:<Login setIsLoggedIn={setIsLoggedIn}/>} />
-          <Route path="/register" component={isLoggedIn? ContactScreen : SignUp} />
-          <Route path="/contact" component={ContactScreen} />
-          <Route path="/logout" component={() => <Logout setIsLoggedIn={setIsLoggedIn} />}/>
+          <Route exact path="/" component={() =>
+            currentPage === "/signin" ? <Login setIsLoggedIn={setIsLoggedIn} /> : <ContactScreen />
+          } />
 
         </main>
       </BrowserRouter>

@@ -7,8 +7,16 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Popover from '@material-ui/core/Popover';
 import { Send, SportsEsports } from '@material-ui/icons'
 
-const ContactDialog = (props: any) => {
-  const { open, handleClose, id , anchorEl } = props;
+interface IContactDialogProps{
+  open:boolean;
+  handleClose:any;
+  id:any;
+  anchorEl:any;
+  isSelecterUserConnected:any;
+}
+
+const ContactDialog = (props: IContactDialogProps) => {
+  const { open, handleClose, id , anchorEl,isSelecterUserConnected} = props;
 
   const handleListItemClick = (value: string) => {
     handleClose(value);
@@ -37,6 +45,7 @@ const ContactDialog = (props: any) => {
           </ListItemAvatar>
           <ListItemText primary="Send Message" />
         </ListItem>
+        {isSelecterUserConnected?
         <ListItem autoFocus button onClick={() => handleListItemClick('play')}>
           <ListItemAvatar>
             <Avatar>
@@ -45,6 +54,7 @@ const ContactDialog = (props: any) => {
           </ListItemAvatar>
           <ListItemText primary="Play" />
         </ListItem>
+        :<></>}
       </List>
     </Popover>
   );

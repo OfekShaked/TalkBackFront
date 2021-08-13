@@ -1,16 +1,21 @@
-import React,{useState} from 'react';
+import React from 'react';
 import Modal from '@material-ui/core/Modal'
-import useOpen from '../../hooks/useOpenConversation'
 
-const ModalPopup = (props:any) =>{
-    const {open, handleClose} = props;
+interface IModalPopupProps {
+    open: boolean;
+    handleClose?: any;
+    children: any;
+}
+
+const ModalPopup = (props: IModalPopupProps) => {
+    const { open, handleClose } = props;
     return (
         <div>
-            <Modal 
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="simple-modal-title"
-            aria-describedby="simple-modal-description"
+            <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="simple-modal-title"
+                aria-describedby="simple-modal-description"
             >
                 {props.children}
             </Modal>

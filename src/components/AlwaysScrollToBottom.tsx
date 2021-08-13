@@ -1,14 +1,19 @@
-import React,{useEffect, useRef} from 'react'
-
+import React, { useEffect, useRef } from 'react'
+import { handleError } from '../services/errorHandling.service';
 
 const AlwaysScrollToBottom = () => {
-    const elementRef = useRef<HTMLDivElement>(null)
-    useEffect(() => {
+  const elementRef = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    try {
       const node = elementRef.current;
       node?.scrollIntoView()
-    });
-    return <div ref={elementRef} />;
-  };
+    } catch (error) {
+      handleError(error);
+    }
 
-  export default AlwaysScrollToBottom;
+  });
+  return <div ref={elementRef} />;
+};
+
+export default AlwaysScrollToBottom;
 

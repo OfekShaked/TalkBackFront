@@ -1,63 +1,75 @@
 import axios from 'axios'
 import config from '../configs/config';
+import { handleError } from './errorHandling.service';
 
-export const login =async (userData:any,setCredentialError:any):Promise<Boolean> => {
-    axios.post(`${config.apiUrl}/account/login`, userData)
-    .then(response => {
-        if(response.status===200){
-            localStorage.setItem('token',response.data.token);
-            localStorage.setItem('username',userData.username);
+export const login = async (userData: any, setCredentialError: any): Promise<Boolean> => {
+    try {
+        const res = await axios.post(`${config.apiUrl}/account/login`, userData)
+        if (res.status === 200) {
+            localStorage.setItem('token', res.data.token);
+            localStorage.setItem('username', userData.username);
             return true;
-        }else{
-             setCredentialError(response.data.message);
-             return false;
+        } else {
+            setCredentialError(res.data.message);
+            return false;
         }
-    })
-    .catch(error => {
-         setCredentialError('There was an error! please try again!');
-         return false;
-    });
-    return false;
+    } catch (error) {
+        setCredentialError('There was an error! please try again!');
+        handleError(error);
+        return false;
+    }
 }
 
-export const register = async (userData:Object,setUsernameError:any)=>{
-    axios.post(`${config.apiUrl}/account/register`, userData)
-            .then(response => {
-                if(response.status===200){
-                    return true;
-                }else{
-                    setUsernameError(response.data);
-                    return false;
-                }
-            })
-            .catch(error => {
-                setUsernameError('There was an error! please try again!');
-                return false;
-            });
+export const register = async (userData: Object, setUsernameError: any) => {
+    try {
+        const res = await axios.post(`${config.apiUrl}/account/register`, userData)
+        if (res.status === 200) {
+            return true;
+        } else {
+            setUsernameError(res.data);
+            return false;
+        }
+    } catch (error) {
+        setUsernameError('There was an error! please try again!');
+        handleError(error);
+        return false;
+    }
 };
 export const logout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("username");
-  };
-export const getCurrentUser = () =>{
-    return localStorage.getItem('username');
+    try {
+        localStorage.removeItem("token");
+        localStorage.removeItem("username");
+    } catch (error) {
+        handleError(error)
+    }
+};
+export const getCurrentUser = (): String => {
+    try {
+        const username = localStorage.getItem('username');
+        return username ? username : "";
+    } catch (error) {
+        handleError(error)
+        return "";
+    }
 };
 
-export const isAuthorized = async():Promise<Boolean> =>{
-    try{
+export const isAuthorized = async (): Promise<Boolean> => {
+    try {
         const dataToSend = {
-            authorization:localStorage.getItem('token')
+            authorization: localStorage.getItem('token')
         }
-    const response = await axios.post(`${config.apiUrl}/account/isconnected`, dataToSend)
-        if(response.status===200){
-            localStorage.setItem('token',response.data.token);
-            localStorage.setItem('username',response.data.username);
+        const response = await axios.post(`${config.apiUrl}/account/isconnected`, dataToSend)
+        if (response.status === 200) {
+            localStorage.setItem('token', response.data.token);
+            localStorage.setItem('username', response.data.username);
             return true;
-        }else{
-             logout();
-             return false;
+        } else {
+            logout();
+            return false;
         }
-    }catch(error) {
-         return false;
+    } catch (error) {
+        handleError(error)
+        return false;
+
     };
 }

@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`contact screen tests renders contact screen view 1`] = `
+Array [
+  <div />,
+  <div />,
+]
+`;

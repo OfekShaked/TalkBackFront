@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Board piece tests renders BoardPiece component 1`] = `
+<div
+  className="piece_white _row_1 column_undefined  canBeMoved"
+  draggable="true"
+  onClick={[MockFunction]}
+/>
+`;

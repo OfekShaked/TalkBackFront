@@ -14,7 +14,7 @@ import useInput from '../../hooks/useInput';
 import {login} from '../../services/auth.service'
 import { useHistory } from "react-router-dom";
 import {SocketContext} from '../../context/socketContext';
-
+import {handleError} from '../../services/errorHandling.service';
 
 const Login = (props:any) => {
     const socket = useContext(SocketContext);
@@ -27,13 +27,17 @@ const Login = (props:any) => {
     const [credentialError,setCredentialError] = useState("")
 
     const onSubmit = async (e:any) => {
+        try{
         e.preventDefault();
-        const userData:any = { "username":usernameRecieved.value, "password":password.value};
+        const userData:any = { "username":usernameRecieved.value, "password":password.value};        
         if(await login(userData,setCredentialError)){
             await socket.emit("user_online",userData.username);
             props.setIsLoggedIn(true);
-            history.push("/contact");
+            history.push("/contact")
         }
+    }catch(error){
+        handleError(error)
+    }
     }
     return (
         <Container component="main" maxWidth="xs">
@@ -86,13 +90,6 @@ const Login = (props:any) => {
                     >
                         Log In
                     </Button>
-                    <Grid container justifyContent="flex-end">
-                        <Grid item>
-                            <Link href="#" variant="body2">
-                                Don't have an account? Sign Up
-                            </Link>
-                        </Grid>
-                    </Grid>
                 </form>
             </div>
         </Container>

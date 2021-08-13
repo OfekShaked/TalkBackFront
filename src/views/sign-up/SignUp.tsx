@@ -13,7 +13,7 @@ import { useTheme } from '@material-ui/core/styles';
 import useInput from '../../hooks/useInput';
 import {register} from '../../services/auth.service';
 import { useHistory } from "react-router-dom";
-
+import { handleError } from '../../services/errorHandling.service';
 
 const SignUp = () => {
     const theme = useTheme();
@@ -25,11 +25,15 @@ const SignUp = () => {
     const [usernameError,setUsernameError] = useState("")
 
     const onSubmit = async (e:any) => {
+        try{
         e.preventDefault();
         const userData:object = { "username":username.value, "password":password.value};
         if(register(userData,setUsernameError)){
             history.push("/signin")
         }
+    }catch(error){
+        handleError(error)
+    }
     }
     return (
         <Container component="main" maxWidth="xs">
@@ -80,13 +84,6 @@ const SignUp = () => {
                     >
                         Sign Up
                     </Button>
-                    <Grid container justifyContent="flex-end">
-                        <Grid item>
-                            <Link href="#" variant="body2">
-                                Already have an account? Sign in
-                            </Link>
-                        </Grid>
-                    </Grid>
                 </form>
             </div>
         </Container>

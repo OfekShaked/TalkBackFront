@@ -1,9 +1,14 @@
 import React from 'react';
-import {Button} from '@material-ui/core'
+import { Button } from '@material-ui/core'
 
 import './InputStyle.scss';
 
-const Input = (props: any) => {
+interface IInput {
+    setMessage: any;
+    sendMessage: any;
+    message: any;
+}
+const Input = (props: IInput) => {
     const { setMessage, sendMessage, message } = props;
     return (
         <form className="form">

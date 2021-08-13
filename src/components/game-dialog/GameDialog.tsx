@@ -6,19 +6,19 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-interface IGameDialogProps{
-    handleClose: any;
-    open:any;
-    player:String;
+interface IGameDialogProps {
+  handleClose: any;
+  open: any;
+  player: String;
 }
 
-const GameDialog = (props:IGameDialogProps) =>{
+const GameDialog = (props: IGameDialogProps) => {
 
-    return (
-        <>
-        <Dialog
+  return (
+    <>
+      <Dialog
         open={props.open}
-        onClose={()=>{props.handleClose("disagree")}}
+        onClose={() => { props.handleClose("disagree") }}
         aria-labelledby="responsive-dialog-title"
       >
         <DialogTitle id="responsive-dialog-title">{"Play backgammon ?"}</DialogTitle>
@@ -28,15 +28,15 @@ const GameDialog = (props:IGameDialogProps) =>{
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={()=>{props.handleClose("disagree")}} color="primary">
+          <Button onClick={() => { props.handleClose("disagree") }} color="primary">
             Disagree
           </Button>
-          <Button onClick={()=>{props.handleClose("agree")}} color="primary" autoFocus>
+          <Button onClick={() => { props.handleClose("agree") }} color="primary" autoFocus>
             Agree
           </Button>
         </DialogActions>
       </Dialog>
-        </>
-    )
+    </>
+  )
 }
 export default GameDialog;

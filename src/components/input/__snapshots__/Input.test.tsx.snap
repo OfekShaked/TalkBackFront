@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`input tests renders input component 1`] = `
+<form
+  className="form"
+>
+  <input
+    className="input"
+    onChange={[Function]}
+    onKeyPress={[Function]}
+    placeholder="Type a message..."
+    type="text"
+    value=""
+  />
+  <button
+    className="MuiButtonBase-root MuiButton-root MuiButton-text sendButton"
+    disabled={false}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onDragLeave={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onMouseDown={[Function]}
+    onMouseLeave={[Function]}
+    onMouseUp={[Function]}
+    onTouchEnd={[Function]}
+    onTouchMove={[Function]}
+    onTouchStart={[Function]}
+    tabIndex={0}
+    type="button"
+  >
+    <span
+      className="MuiButton-label"
+    >
+      Send
+    </span>
+  </button>
+</form>
+`;
