@@ -28,7 +28,7 @@ const SignUp = () => {
         try{
         e.preventDefault();
         const userData:object = { "username":username.value, "password":password.value};
-        if(register(userData,setUsernameError)){
+        if(await register(userData,setUsernameError)){
             history.push("/signin")
         }
     }catch(error){

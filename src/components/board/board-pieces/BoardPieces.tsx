@@ -385,7 +385,7 @@ const BoardPieces = (props: IBoardPiecesProps) => {
             if (isOptionalVisible) {
                 if (isOptionalVisible.dice1 === isOptionalVisible.dice2 && turnsUsed === 4) {
                     finishTurn();
-                } else if (turnsUsed > 2) {
+                } else if (turnsUsed > 2&&isOptionalVisible.dice1 !== isOptionalVisible.dice2) {
                     finishTurn();
                 }
             }

@@ -59,6 +59,8 @@ export const isAuthorized = async (): Promise<Boolean> => {
             authorization: localStorage.getItem('token')
         }
         const response = await axios.post(`${config.apiUrl}/account/isconnected`, dataToSend)
+        console.log(response);
+        
         if (response.status === 200) {
             localStorage.setItem('token', response.data.token);
             localStorage.setItem('username', response.data.username);
