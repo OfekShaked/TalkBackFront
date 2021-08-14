@@ -41,6 +41,9 @@ jobs:
         # deploy to Azure Web App.
         npm install
         npm run build --if-present
+        run: npm run test --if-present
+      env:
+        CI: false
     - name: add process.json
       run: |
         echo '{ script: "serve", env: { PM2_SERVE_SPA: "true", PM2_SERVE_HOMEPAGE: "/index.html" } }' >> build/process.json    
