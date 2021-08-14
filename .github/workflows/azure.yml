@@ -18,11 +18,11 @@
 on:
   push:
     types: [created]
-
+  workflow_dispatch: 
 env:
   AZURE_WEBAPP_NAME: backgammon-project    # set this to your application's name
   AZURE_WEBAPP_PACKAGE_PATH: 'build'      # set this to the path to your web app project, defaults to the repository root
-  NODE_VERSION: '10.x'                # set this to the node version to use
+  NODE_VERSION: '14.x'                # set this to the node version to use
 
 jobs:
   build-and-deploy:
@@ -41,7 +41,8 @@ jobs:
         # deploy to Azure Web App.
         npm install
         npm run build --if-present
-        npm run test --if-present
+      env:
+        CI: false
     - name: add process.json
       run: |
         echo '{ script: "serve", env: { PM2_SERVE_SPA: "true", PM2_SERVE_HOMEPAGE: "/index.html" } }' >> build/process.json    
