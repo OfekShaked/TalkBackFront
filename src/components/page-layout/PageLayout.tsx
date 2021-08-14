@@ -49,6 +49,7 @@ export default function PageLayout() {
         setCurrentPage("/contact");
       }
       else {
+        socket.emit("logout");
         setCurrentPage("/signin");
       }
     } catch (err) {
