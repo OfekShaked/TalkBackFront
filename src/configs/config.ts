@@ -1,5 +1,5 @@
 
 const config = {
-    apiUrl:'https://whats-on-your-app.azurewebsites.net/'
+    apiUrl:'https://whats-on-my-app-api.azurewebsites.net/'
 }
 export default config;
