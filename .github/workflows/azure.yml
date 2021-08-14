@@ -18,7 +18,7 @@
 on:
   push:
     types: [created]
-
+  workflow_dispatch: 
 env:
   AZURE_WEBAPP_NAME: backgammon-project    # set this to your application's name
   AZURE_WEBAPP_PACKAGE_PATH: 'build'      # set this to the path to your web app project, defaults to the repository root
