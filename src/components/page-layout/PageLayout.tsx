@@ -8,6 +8,7 @@ import SignUp from '../../views/sign-up/SignUp';
 import Login from '../../views/log-in/Login';
 import Logout from '../log-out/Logout';
 import ContactScreen from '../../views/contact-screen/ContactScreen';
+import WebsiteDown from '../../views/website-down/WebsiteDown';
 import { BrowserRouter, Route, Redirect } from 'react-router-dom';
 import { isAuthorized } from '../../services/auth.service'
 import { SocketContext } from '../../context/socketContext'
@@ -20,6 +21,7 @@ export default function PageLayout() {
   const classes = useStyles(theme);
   const [open, setOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState<Boolean>(false);
+  const [isServerOnline,setIsServerOnline] = useState(false);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -30,7 +32,7 @@ export default function PageLayout() {
   };
 
   useEffect(() => {
-    try {
+    try {      
       const getAuth = async () => {
         setIsLoggedIn(await isAuthorized());
       }
@@ -54,6 +56,13 @@ export default function PageLayout() {
     }
   }, [isLoggedIn])
 
+  useEffect(()=>{
+    setIsServerOnline(socket.connected);
+    socket.on("connect",()=>{
+      setIsServerOnline(socket.connected);      
+    })
+  },[socket])
+
 
   return (
     <div className={classes.root}>
@@ -67,6 +76,7 @@ export default function PageLayout() {
           })}
         >
           <div className={classes.drawerHeader} />
+          {isServerOnline?<>
           <Route path="/signin" component={() => isLoggedIn ? <ContactScreen /> : <Login setIsLoggedIn={setIsLoggedIn} />} />
           <Route path="/register" component={isLoggedIn ? ContactScreen : SignUp} />
           <Route path="/contact" component={ContactScreen} />
@@ -77,7 +87,7 @@ export default function PageLayout() {
           <Route exact path="/" component={() =>
             currentPage === "/signin" ? <Login setIsLoggedIn={setIsLoggedIn} /> : <ContactScreen />
           } />
-
+          </>:<WebsiteDown/>}
         </main>
       </BrowserRouter>
     </div>

@@ -5,6 +5,7 @@ export const handleError = async(error:any) =>{
     try{
         await axios.post(`${config.apiUrl}/errors/add`, {error:error.stack})
     }catch(err){
-        console.log(error);
+        console.log(error.stack);
+        console.log(err);
     }
 }

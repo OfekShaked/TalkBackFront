@@ -10,6 +10,7 @@ import useOpenConversation from '../../hooks/useOpenConversation';
 import useOpenBoard from '../../hooks/useOpenBoard';
 import Board from '../../components/board/Board';
 import GameDialog from '../../components/game-dialog/GameDialog';
+import MessageNotification from '../../components/message-notification/MessageNotification';
 import {handleError} from '../../services/errorHandling.service';
 
 const ContactScreen = () => {
@@ -23,10 +24,21 @@ const ContactScreen = () => {
     const [openGameDialog,setOpenGameDialog] = useState(false);
     const [playerAsking,setPlayerAsking] = useState("");
     const {openBoard,handleBoardOpen,handleBoardClose} = useOpenBoard();
+    const [openMessageNotification,setOpenMessageNotification] = useState(false);
+    const [senderName,setSenderName] = useState("");
+    const [messageText,setMessageText] = useState("");
     const handleDialogClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
     }
 
+    const messageNotificationClose = (event?: React.SyntheticEvent, reason?: string)=>{
+        if (reason === 'clickaway') {
+            return;
+          }
+          setOpenMessageNotification(false);
+          setSenderName("");
+          setMessageText("");
+    }
     const handleDialogClose = (value: string) => {
         try{
         setAnchorEl(null);
@@ -80,6 +92,12 @@ const ContactScreen = () => {
                 setSelectedUsername(username);
                 setOpenGameDialog(true);
             })
+
+            await socket.on("getNewMessage",(messsageData:any)=>{
+                setMessageText(messsageData.text);
+                setSenderName(messsageData.sender);
+                setOpenMessageNotification(true);                
+            })
         }
         socketGet();
         } catch (err) {
@@ -90,7 +108,7 @@ const ContactScreen = () => {
     useEffect(() => {
         try {
             const socketSend = async () =>{
-                await socket.emit("ask_for_onlineUsers", getCurrentUser());
+                await socket.emit("ask_for_users", getCurrentUser());
             }
             socketSend();
         }
@@ -127,7 +145,7 @@ const ContactScreen = () => {
             <Conversation open={openConversation} handleClose={handleConversationClose} senderUsername={getCurrentUser()} recieverUsername={selectedUsername}/>
             <Board open={openBoard} handleClose={handleBoardClose}/>
             <GameDialog open={openGameDialog} handleClose={handleGameDialogClose} player={playerAsking} />
-
+            <MessageNotification notificationOpen={openMessageNotification} sender={senderName} text={messageText} onNotificationClose={messageNotificationClose}/>
         </>
 
     );
