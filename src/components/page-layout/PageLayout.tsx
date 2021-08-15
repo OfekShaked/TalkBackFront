@@ -79,13 +79,13 @@ export default function PageLayout() {
         >
           <div className={classes.drawerHeader} />
           {isServerOnline?<>
-          <Route path="/signin" component={() => isLoggedIn ? <ContactScreen /> : <Login setIsLoggedIn={setIsLoggedIn} />} />
-          <Route path="/register" component={() => isLoggedIn ? <ContactScreen /> : <SignUp/>}/>
+          <Route path="/signin" render={() => isLoggedIn ? <ContactScreen /> : <Login setIsLoggedIn={setIsLoggedIn} />} />
+          <Route path="/register" render={() => isLoggedIn ? <ContactScreen /> : <SignUp/>}/>
           <Route path="/contact" component={ContactScreen} />
-          <Route path="/logout" component={() => <Logout setIsLoggedIn={setIsLoggedIn} />} />
-          <Route path="*" component={() => isLoggedIn ? <ContactScreen /> : <Login setIsLoggedIn={setIsLoggedIn} />} />
+          <Route path="/logout" render={() => <Logout setIsLoggedIn={setIsLoggedIn} />} />
+          <Route path="*" render={() => isLoggedIn ? <ContactScreen /> : <Login setIsLoggedIn={setIsLoggedIn} />} />
           </>:
-          <Route component={() =><WebsiteDown/>} />
+          <Route component={WebsiteDown} />
           }
         </main>
         </Switch>
