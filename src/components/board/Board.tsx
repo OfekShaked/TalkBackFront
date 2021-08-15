@@ -150,7 +150,7 @@ const Board = (props: IBoardProps) => {
                                 <div className="leftContainer">
                                     <Button onClick={props.handleClose}><Close className="fillIcon" /></Button>
                                     <Button variant="contained" color="primary" onClick={rollAll} disabled={isRollDisabled}>Roll Dice</Button>
-                                    <Avatar className={currentUserColor.toString()}></Avatar>
+                                    <div className={currentUserColor.toString()}></div>
                                 </div>
                                 {isTurn ?
                                     <div className="rightContainer">
