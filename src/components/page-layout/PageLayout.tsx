@@ -83,7 +83,6 @@ export default function PageLayout() {
           <Route exact path="/register" render={() => isLoggedIn ? <ContactScreen /> : <SignUp/>}/>
           <Route exact path="/contact" component={ContactScreen} />
           <Route exact path="/logout" render={() => <Logout setIsLoggedIn={setIsLoggedIn} />} />
-          {/* <Route path="*" render={() => isLoggedIn ? <ContactScreen /> : <Login setIsLoggedIn={setIsLoggedIn} />} /> */}
           </>:
           <Route path="*" component={WebsiteDown} />
           }
