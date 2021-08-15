@@ -22,6 +22,7 @@ interface IPosition {
 
 
 const BoardPieces = (props: IBoardPiecesProps) => {
+    
     const socket = useContext(SocketContext);
     const { showOptions, userColor, isOptionalVisible } = props;
 
@@ -38,6 +39,9 @@ const BoardPieces = (props: IBoardPiecesProps) => {
     const [blackStandby, setBlackStandby] = useState(0);
     const [turnsUsed, setTurnsUsed] = useState(0);
     const [isOptionalPaused,setIsOptionalPaused] = useState(false);
+
+    //timer
+    const [timer,setTimer] = useState<any>(null);
 
 
     const positions: Array<IPosition> = [
@@ -219,7 +223,7 @@ const BoardPieces = (props: IBoardPiecesProps) => {
             return { option1: { isDead: true, position: 0, color: "white", row: 1, isOptional: false, onClick: () => { } }, option2: { isDead: true, position: 0, color: "white", row: 1, isOptional: false, onClick: () => { } }, option3: { isDead: true, position: 0, color: "white", row: 1, isOptional: false, onClick: () => { } }, option4: { isDead: true, position: 0, color: "white", row: 1, isOptional: false, onClick: () => { } } }
         }
     }
-    //fixed positions and show dead ones
+    //fixed positions and show dead ones for pieces out
     const getOptionalPositions = (position: number, dice1: number, dice2: number) => {
         try {
             let optionPositions = getOptionalPositionsInner(position, dice1, dice2);
@@ -280,6 +284,10 @@ const BoardPieces = (props: IBoardPiecesProps) => {
     //finishes user turn and moves the next user
     const finishTurn = () => {
         try {
+            if(timer){
+            clearTimeout(timer);
+            setTimer(null);
+            }
             setTurnsUsed(0);
             let currentUser = getCurrentUser();
             const boardDataToSend = {
@@ -452,6 +460,14 @@ const BoardPieces = (props: IBoardPiecesProps) => {
                     setWhiteOut(board.whiteOut);
                     setWhiteStandby(board.whiteStandby);
                     setBlackStandby(board.blackStandby);
+                })
+
+                socket.on("changeTurn", (currentTurnColor: any) => {
+                    if(currentTurnColor===userColor){
+                        setTimer(setTimeout(()=>{
+                            finishTurn();
+                        },120000));
+                    }
                 })
             }
             socketGet();
