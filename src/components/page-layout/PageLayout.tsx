@@ -21,7 +21,7 @@ export default function PageLayout() {
   const classes = useStyles(theme);
   const [open, setOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState<Boolean>(false);
-  const [isServerOnline,setIsServerOnline] = useState(false);
+  const [isServerOnline,setIsServerOnline] = useState(socket.connected);
 
   const handleDrawerOpen = () => {
     setOpen(true);
