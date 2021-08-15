@@ -69,6 +69,7 @@ export default function PageLayout() {
     <div className={classes.root}>
       <CssBaseline />
       <BrowserRouter>
+      <Switch>
         <Header handleDrawerOpen={handleDrawerOpen} open={open} handleDrawerClose={handleDrawerClose} isLoggedIn={isLoggedIn}></Header>
 
         <main
@@ -84,9 +85,10 @@ export default function PageLayout() {
           <Route path="/logout" render={() => <Logout setIsLoggedIn={setIsLoggedIn} />} />
           <Route path="*" render={() => isLoggedIn ? <ContactScreen /> : <Login setIsLoggedIn={setIsLoggedIn} />} />
           </>:
-          <Route component={WebsiteDown} />
+          <Route path="*" component={WebsiteDown} />
           }
         </main>
+        </Switch>
       </BrowserRouter>
     </div>
   );
