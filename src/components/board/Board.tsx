@@ -3,7 +3,7 @@ import './Board.scss';
 import ModalPopup from '../modal/ModalPopup';
 import BoardPieces from './board-pieces/BoardPieces';
 import { Close, Games } from '@material-ui/icons';
-import { Button, CircularProgress, Badge } from '@material-ui/core';
+import { Button, CircularProgress, Badge,Avatar } from '@material-ui/core';
 import ReactDice from 'react-dice-complete'
 import 'react-dice-complete/dist/react-dice-complete.css'
 import { SocketContext } from '../../context/socketContext'
@@ -151,6 +151,7 @@ const Board = (props: IBoardProps) => {
                                 <div className="leftContainer">
                                     <Button onClick={props.handleClose}><Close className="fillIcon" /></Button>
                                     <Button variant="contained" color="primary" onClick={rollAll} disabled={isRollDisabled}>Roll Dice</Button>
+                                    <Avatar className={userColor.toString()}></Avatar>
                                 </div>
                                 {isTurn ?
                                     <div className="rightContainer">
@@ -158,7 +159,6 @@ const Board = (props: IBoardProps) => {
                                         <Badge badgeContent={numTurnsLeft} color="primary" className="turnsLeft">
                                             <Games />
                                         </Badge>
-
                                     </div>
                                     : <></>
                                 }

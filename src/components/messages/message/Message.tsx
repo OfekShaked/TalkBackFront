@@ -13,7 +13,7 @@ const Message = (props: IMessageProps) => {
 
   const trimmedName = name.trim().toLowerCase();
 
-  if (message.sender === trimmedName) {
+  if (message.sender.trim().toLowerCase() === trimmedName) {
     isSentByCurrentUser = true;
   }
 

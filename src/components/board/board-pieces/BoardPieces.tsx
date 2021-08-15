@@ -91,7 +91,7 @@ const BoardPieces = (props: IBoardPiecesProps) => {
         }
     }
     //handles the click on an optional move of a piece
-    const handlePositionChosen = (oldPosition: number, newPosition: number, color: String, currentTurnsUsed: number) => {
+    const handlePositionChosen = async(oldPosition: number, newPosition: number, color: String, currentTurnsUsed: number) => {
         try {
             changeOldPosition(currentPositions, oldPosition, setWhiteStandby, setBlackStandby, whiteStandby, blackStandby, setCurrentPositions);
             setNewPosition(newPosition, setWhiteOut, setBlackOut, currentPositions, color, setWhiteStandby, setBlackStandby, setCurrentPositions);
@@ -104,7 +104,7 @@ const BoardPieces = (props: IBoardPiecesProps) => {
                 blackStandby: blackStandby
             }
             const currentUser = getCurrentUser();
-            socket.emit("sendBoard", { board: boardDataToSend, senderUsername: currentUser });
+            await socket.emit("sendBoard", { board: boardDataToSend, senderUsername: currentUser });
         } catch (error) {
             handleError(error);
         }
