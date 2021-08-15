@@ -13,6 +13,7 @@ const useOpenBoard = () => {
   };
 
   const handleBoardClose = (): void => {
+    window.location.reload()
     setOpenBoard(false);
     socket.emit("leaveGame",{ ...boardPlayers})
 
