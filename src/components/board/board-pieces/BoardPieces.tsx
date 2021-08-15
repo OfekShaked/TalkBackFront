@@ -37,6 +37,7 @@ const BoardPieces = (props: IBoardPiecesProps) => {
     const [whiteStandby, setWhiteStandby] = useState(0);
     const [blackStandby, setBlackStandby] = useState(0);
     const [turnsUsed, setTurnsUsed] = useState(0);
+    const [isOptionalPaused,setIsOptionalPaused] = useState(false);
 
 
     const positions: Array<IPosition> = [
@@ -93,6 +94,10 @@ const BoardPieces = (props: IBoardPiecesProps) => {
     //handles the click on an optional move of a piece
     const handlePositionChosen = async(oldPosition: number, newPosition: number, color: String, currentTurnsUsed: number) => {
         try {
+            setIsOptionalPaused(true);
+            setTimeout(() => {
+                setIsOptionalPaused(false);
+            }, 1000);
             changeOldPosition(currentPositions, oldPosition, setWhiteStandby, setBlackStandby, whiteStandby, blackStandby, setCurrentPositions);
             setNewPosition(newPosition, setWhiteOut, setBlackOut, currentPositions, color, setWhiteStandby, setBlackStandby, setCurrentPositions);
             setTurnsUsed(turnsUsed + currentTurnsUsed)
@@ -444,7 +449,7 @@ const BoardPieces = (props: IBoardPiecesProps) => {
     return (
         <>
             {currentPositions.map((object, i) => mapPositions(object, i))}
-            {props.isTurn ? optionPieces : <></>}
+            {props.isTurn&&!isOptionalPaused ? optionPieces : <></>}
             {standbyPieces}
             {outPieces}
         </>

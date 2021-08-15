@@ -28,7 +28,7 @@ const MessageNotification = (props: IMessageNotificationProps) => {
 
     useEffect(() => {        
         if(notificationOpen){
-            let audio = new Audio("https://fsb.zobj.net/download/b-2Zm5rq55wKFJGjC-Rbqu5mgoyjS5LllDNDILAwKcmkq0XdzzUnx1j1MWEFKtsEOzsviSb6wvexZ42e3FAI5fqWFUMHQIkZeNDkyWhMTqKgZM_yxPlehPZYvZwA/?a=&c=72&f=notification.mp3&special=1628942422-aP%2FPZ%2FAFIgkIqq2Nh8xO4zgLUQozZ5ZaTCJ0LufZoRE%3D");
+            let audio = new Audio("http://commondatastorage.googleapis.com/codeskulptor-assets/week7-brrring.m4a");
              audio.load();
             audio.muted=false;
              audio.play()
