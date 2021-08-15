@@ -69,7 +69,6 @@ export default function PageLayout() {
     <div className={classes.root}>
       <CssBaseline />
       <BrowserRouter>
-      <Switch>
         <Header handleDrawerOpen={handleDrawerOpen} open={open} handleDrawerClose={handleDrawerClose} isLoggedIn={isLoggedIn}></Header>
 
         <main
@@ -79,16 +78,16 @@ export default function PageLayout() {
         >
           <div className={classes.drawerHeader} />
           {isServerOnline?<>
-          <Route path="/signin" render={() => isLoggedIn ? <ContactScreen /> : <Login setIsLoggedIn={setIsLoggedIn} />} />
-          <Route path="/register" render={() => isLoggedIn ? <ContactScreen /> : <SignUp/>}/>
-          <Route path="/contact" component={ContactScreen} />
-          <Route path="/logout" render={() => <Logout setIsLoggedIn={setIsLoggedIn} />} />
-          <Route path="*" render={() => isLoggedIn ? <ContactScreen /> : <Login setIsLoggedIn={setIsLoggedIn} />} />
+          <Route exact path="/" render={() => isLoggedIn ? <ContactScreen /> : <Login setIsLoggedIn={setIsLoggedIn} />} />
+          <Route exact path="/signin" render={() => isLoggedIn ? <ContactScreen /> : <Login setIsLoggedIn={setIsLoggedIn} />} />
+          <Route exact path="/register" render={() => isLoggedIn ? <ContactScreen /> : <SignUp/>}/>
+          <Route exact path="/contact" component={ContactScreen} />
+          <Route exact path="/logout" render={() => <Logout setIsLoggedIn={setIsLoggedIn} />} />
+          {/* <Route path="*" render={() => isLoggedIn ? <ContactScreen /> : <Login setIsLoggedIn={setIsLoggedIn} />} /> */}
           </>:
           <Route path="*" component={WebsiteDown} />
           }
         </main>
-        </Switch>
       </BrowserRouter>
     </div>
   );
