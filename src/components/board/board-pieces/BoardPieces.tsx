@@ -298,9 +298,25 @@ const BoardPieces = (props: IBoardPiecesProps) => {
 
     const checkAndHandleUserWin = () => {
         try {
-            if (whiteOut === 15) { props.setGameAlertDialogType("whiteWin"); }
+            if (whiteOut === 15) { props.setGameAlertDialogType("whiteWin"); return;}
 
-            if (blackOut === 15) { props.setGameAlertDialogType("blackWin"); }
+            if (blackOut === 15) { props.setGameAlertDialogType("blackWin"); return;}
+
+            let blackShown = false;
+            let whiteShown = false;
+            for (let index = 0; index < currentPositions.length; index++) {
+                if(currentPositions[index].color==="white") whiteShown=true;
+                if(currentPositions[index].color==="black") blackShown=true;
+                if(blackShown&&whiteShown) return;
+            }
+            if(whiteShown){
+                props.setGameAlertDialogType("blackWin"); 
+                return;
+            }
+            else{
+                props.setGameAlertDialogType("whiteWin"); 
+                return;
+            }
         } catch (error) {
             handleError(error);
         }
