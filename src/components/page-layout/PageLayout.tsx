@@ -9,7 +9,7 @@ import Login from '../../views/log-in/Login';
 import Logout from '../log-out/Logout';
 import ContactScreen from '../../views/contact-screen/ContactScreen';
 import WebsiteDown from '../../views/website-down/WebsiteDown';
-import { BrowserRouter, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { isAuthorized } from '../../services/auth.service'
 import { SocketContext } from '../../context/socketContext'
 import { handleError } from '../../services/errorHandling.service'
@@ -69,6 +69,7 @@ export default function PageLayout() {
     <div className={classes.root}>
       <CssBaseline />
       <BrowserRouter>
+      <Switch>
         <Header handleDrawerOpen={handleDrawerOpen} open={open} handleDrawerClose={handleDrawerClose} isLoggedIn={isLoggedIn}></Header>
 
         <main
@@ -87,6 +88,7 @@ export default function PageLayout() {
           <Route component={() =><WebsiteDown/>} />
           }
         </main>
+        </Switch>
       </BrowserRouter>
     </div>
   );
