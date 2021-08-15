@@ -49,13 +49,12 @@ const Board = (props: IBoardProps) => {
         }
     }
     const rollDoneCallback = (num: number) => {
-
+        setIsDiceRolled(true);
     }
     const rollAll = () => {
         try {
             reactDice1.rollAll();
             reactDice2.rollAll();
-            setIsDiceRolled(true);
             setIsRollDisabled(true);
         } catch (err) {
             handleError(err);
@@ -151,7 +150,7 @@ const Board = (props: IBoardProps) => {
                                 <div className="leftContainer">
                                     <Button onClick={props.handleClose}><Close className="fillIcon" /></Button>
                                     <Button variant="contained" color="primary" onClick={rollAll} disabled={isRollDisabled}>Roll Dice</Button>
-                                    <Avatar className={userColor.toString()}></Avatar>
+                                    <Avatar className={currentUserColor.toString()}></Avatar>
                                 </div>
                                 {isTurn ?
                                     <div className="rightContainer">
