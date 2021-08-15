@@ -87,15 +87,19 @@ $pieceSize:calc(min(#{$boardWidth},#{$boardHeight}) / 13);
   background-color:white;
   color:black;
   border-radius: 50%;
-  width:10px;
-  height: 10px;
+  width:40px;
+  height: 40px;
+  margin-left: 50px;
+  margin-top: 2px;
 }
 .black{
   background-color:black;
   color: white;
   border-radius: 50%;
-  width:10px;
-  height: 10px;
+  width:40px;
+  height: 40px;
+  margin-left: 50px;
+  margin-top: 2px;
 }
 .right-bin {
   position: relative;

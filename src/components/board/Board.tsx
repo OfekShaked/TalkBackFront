@@ -44,9 +44,20 @@ const Board = (props: IBoardProps) => {
         try {
             setOpenGameAlertDialog(false);
             props.handleClose();
+            resetAllProps();
         } catch (err) {
             handleError(err)
         }
+    }
+
+    const resetAllProps = () =>{
+        setIsGameStarted(false);
+        setGameMessage("");
+        setIsRollDisabled(true);
+        setCurrentUserColor("");
+        setNumTurnsLeft(0);
+        setGameAlertDialogType("");
+        setIsTurn(false);
     }
     const rollDoneCallback = (num: number) => {
         setIsDiceRolled(true);
@@ -86,6 +97,11 @@ const Board = (props: IBoardProps) => {
     }catch(error){
         handleError(error);
     }
+    }
+
+    const leaveGame = ()=>{
+        props.handleClose();
+        resetAllProps();
     }
 
     //socket handler
@@ -138,7 +154,7 @@ const Board = (props: IBoardProps) => {
                     {!isGameStarted ?
                         <>
                             <div className="leftContainer">
-                                <Button onClick={props.handleClose}><Close className="fillIcon" /></Button>
+                                <Button onClick={leaveGame}><Close className="fillIcon" /></Button>
                             </div>
                             <div className="loading">
                                 <CircularProgress />
@@ -148,7 +164,7 @@ const Board = (props: IBoardProps) => {
                         <>
                             <div className="topContainer">
                                 <div className="leftContainer">
-                                    <Button onClick={props.handleClose}><Close className="fillIcon" /></Button>
+                                    <Button onClick={leaveGame}><Close className="fillIcon" /></Button>
                                     <Button variant="contained" color="primary" onClick={rollAll} disabled={isRollDisabled}>Roll Dice</Button>
                                     <div className={currentUserColor.toString()}></div>
                                 </div>
