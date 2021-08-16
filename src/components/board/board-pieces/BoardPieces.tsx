@@ -40,10 +40,6 @@ const BoardPieces = (props: IBoardPiecesProps) => {
     const [turnsUsed, setTurnsUsed] = useState(0);
     const [isOptionalPaused, setIsOptionalPaused] = useState(false);
 
-    //timer
-    const [timer, setTimer] = useState<any>(null);
-
-
     const positions: Array<IPosition> = [
         { piecesCount: 2, color: "white" },
         { piecesCount: 0, color: "" },
@@ -99,10 +95,6 @@ const BoardPieces = (props: IBoardPiecesProps) => {
     //finishes user turn and moves the next user
     const finishTurn = () => {
         try {
-            if (timer) {
-                clearTimeout(timer);
-                setTimer(null);
-            }
             setTurnsUsed(0);
             let currentUser = getCurrentUser();
             const boardDataToSend = {
@@ -179,14 +171,6 @@ const BoardPieces = (props: IBoardPiecesProps) => {
                     setWhiteOut(board.whiteOut);
                     setWhiteStandby(board.whiteStandby);
                     setBlackStandby(board.blackStandby);
-                })
-
-                socket.on("changeTurn", (currentTurnColor: any) => {
-                    if (currentTurnColor === userColor) {
-                        setTimer(setTimeout(() => {
-                            finishTurn();
-                        }, 120000));
-                    }
                 })
             }
             socketGet();
